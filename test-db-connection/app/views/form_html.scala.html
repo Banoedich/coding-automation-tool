@@ -1,0 +1,48 @@
+@(coffeeForm: Form[CoffeeData])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@main("form example") {
+<h1>DB connection test</h1>
+<h2>All objects in coffee table</h2>
+<ul>
+  <li>Nothing yet</li>
+</ul>
+<h2>Interactions with db</h2>
+<h3>Object with GET</h3>
+<form method="get" action="getFormData" class="squared">
+<!-- routes.HomeController.getFormData() -->
+  <p>
+    <input type="text" name="name">
+    <label for="name"></label>
+  </p>
+  <p>
+    <input type="number" name="price">
+    <label for="price"></label>
+  </p>
+  <button type="submit">Receive GET</button>
+</form>
+
+<h3>Object with POST</h3>
+<form method="post" action="@routes.HomeController.postFormData" class="squared">
+<!--  routes.HomeController.postFormData-->
+  <p>
+    <input type="text" name="name">
+    <label for="name"></label>
+  </p>
+  <p>
+    <input type="number" name="price">
+    <label for="price"></label>
+  </p>
+  <button type="submit">Receive POST</button>
+</form>
+
+<h3>Add object with FormObject</h3>
+@helper.form(action = routes.HomeController.validateCoffeeForm) {
+  @helper.CSRF.formField
+  @helper.inputText(coffeeForm("name"))
+  @helper.inputText(coffeeForm("price"))
+  <div class="form-actions">
+    <button type="submit">Receive form</button>
+  </div>
+}
+
+}
